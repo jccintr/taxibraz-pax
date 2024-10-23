@@ -1,20 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+//import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App() {
+import { AuthContext } from './context/AuthContext';
+import { DestinationContext } from './context/DestinationContext';
+import { OriginContext } from './context/OriginContext';
+import { LocationContext } from './context/LocationContext';
+import {DriverLocationContext} from './context/DriverLocationContext';
+import { RideContext } from './context/RideContext';
+
+import StackNavigator from './navigation/StackNavigator';
+
+
+//const Stack = createNativeStackNavigator();
+
+
+const App = () => {
+  const [loggedUser,setLoggedUser] = useState(null);
+  const [apiToken,setApiToken] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [drivers,setDrivers] = useState([]);
+  const [activeRide,setActiveRide] = useState(null);
+  const [origin,setOrigin] = useState(null);
+  const [destination,setDestination] = useState(null);
+  const [destinationText,setDestinationText] = useState('');
+  const [originText,setOriginText] = useState('');
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <AuthContext.Provider value={{loggedUser,setLoggedUser,apiToken,setApiToken}}>
+      <DriverLocationContext.Provider value={{drivers,setDrivers}}>
+        <LocationContext.Provider value={{location,setLocation}}>
+          <OriginContext.Provider value={{origin,setOrigin,originText,setOriginText}}>
+            <DestinationContext.Provider value={{destination,setDestination,destinationText,setDestinationText}}>
+              <RideContext.Provider value={{activeRide,setActiveRide}}>
+                <NavigationContainer>
+                    <StackNavigator/>
+                </NavigationContainer>
+              </RideContext.Provider>
+            </DestinationContext.Provider>
+          </OriginContext.Provider>
+        </LocationContext.Provider>
+      </DriverLocationContext.Provider>
+    </AuthContext.Provider>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
