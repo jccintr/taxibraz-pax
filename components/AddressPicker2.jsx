@@ -129,7 +129,7 @@ const AddressPicker2 = () => {
      
         <AddressInput2 
            
-           label={'Para:'} 
+           label={'Até:'} 
            placeholder={'Escolha o seu destino'} 
            value={destinationText} 
            setValue={setDestinationText} 

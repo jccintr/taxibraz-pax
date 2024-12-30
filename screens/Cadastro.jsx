@@ -1,16 +1,18 @@
-import { StyleSheet, Text, View,SafeAreaView,StatusBar, TouchableOpacity,ToastAndroid,ScrollView,Alert } from 'react-native';
+import { StyleSheet,Text,SafeAreaView,StatusBar, TouchableOpacity,ToastAndroid,ScrollView,Alert,Linking,View, Pressable } from 'react-native';
 import React, {useState} from 'react';
 import InputField from '../components/InputField';
 import Botao from '../components/reusable/Botao';
 import { cores } from '../cores';
 import HeightSpacer from '../components/reusable/HeightSpacer';
 import api from '../api/api';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 
 const Cadastro = ({navigation}) => {
   //const screenWidth = Dimensions.get('window').width;
   const [formData, setFormData] = useState({name:'',email:'',password:'',password2:'',telefone:'',doc:''});
   const [isLoading,setIsLoading] = useState(false);
+  const [checked,setChecked] = useState(false);
   
   const validaCPF = (cpf) => {
 
@@ -53,6 +55,10 @@ const Cadastro = ({navigation}) => {
 
   const cadastrar = async () => {
       
+    if(!checked){
+      Alert.alert('Atenção','Para se cadastrar é necessário concordar com os Termos de Uso.');
+      return;
+    }
    
     if(formData.name.trim().length === 0 || formData.telefone.trim().length === 0 || formData.email.trim().length === 0 || formData.password.trim().length === 0 || formData.password2.trim().length === 0 || formData.doc.trim().length === 0){
       Alert.alert('Atenção','Preencha todos os campos por favor.');
@@ -80,6 +86,10 @@ const Cadastro = ({navigation}) => {
     ToastAndroid.show('Conta criada com sucesso !', ToastAndroid.LONG);
     navigation.reset({routes:[{name:'login'}]});
     return;
+  }
+
+  const onShowTermos = () => {
+    Linking.openURL('https://privacy.brazdriver.app.br/termos.html');
   }
 
 
@@ -135,6 +145,20 @@ const Cadastro = ({navigation}) => {
             password={false} 
             keyboard={'numeric'}
          />
+         <HeightSpacer h={10}/>
+         <View style={{flexDirection:'row',gap: 10,alignItems:'center'}}>
+
+            <Pressable onPress={()=>setChecked(!checked)}>
+               <FontAwesome6 name={checked?'square-check':'square'} size={24} color={cores.primary} />
+            </Pressable>
+           
+            <TouchableOpacity onPress={()=>Linking.openURL('https://privacy.brazdriver.app.br/termos.html')} >
+                  <Text>Li e concordo com os <Text style={{color:cores.primary,fontWeight:'bold'}}>Termos de Uso</Text>.</Text>
+            </TouchableOpacity>
+
+         </View>
+         
+         <HeightSpacer h={15}/>
          <Botao 
             onPress={cadastrar} 
             text={'CADASTRAR'} 
@@ -162,6 +186,7 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     paddingTop: 20,
+    paddingBottom:20,
     paddingHorizontal: 20,
     alignItems:'center',
     justifyContent:'flex-start',

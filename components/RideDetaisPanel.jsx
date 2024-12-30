@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View} from 'react-native'
+import { StyleSheet, Text, View,Image} from 'react-native'
 import React from 'react'
-//import { FontAwesome } from '@expo/vector-icons';
+
 import { cores } from '../cores';
 import PaymentList from './PaymentList';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -16,7 +16,8 @@ const RideDetaisPanel = ({originText,destinationText,value,distancia,time,callDr
     <View style={styles.container}>
     
       <View style={{flexDirection:'row',gap:5, alignItems:'center'}}>
-         <MaterialCommunityIcons name="map-marker-radius" size={18} color={cores.startMarker} />
+        
+         
          <Text>{originText}</Text>
       </View>
       
@@ -25,7 +26,7 @@ const RideDetaisPanel = ({originText,destinationText,value,distancia,time,callDr
       </View>
      
       <View style={{flexDirection:'row',gap:5,alignItems:'center'}}>
-          <MaterialCommunityIcons name="map-marker-radius" size={18} color={cores.finishMarker} />
+          
           <Text>{destinationText}</Text>
       </View>
       <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',backgroundColor:'#e1e1e1',borderRadius:5,padding:5,paddingHorizontal:10}}>

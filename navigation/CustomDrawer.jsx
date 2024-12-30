@@ -54,9 +54,14 @@ const talk = () => {
             onPress={() => navigation.navigate('profile')}
          />
           <DrawerItem
-            icon={()=><FontAwesome6 name="whatsapp" size={24} color="black" />}
+            icon={()=><FontAwesome6 name="message" size={24} color="black" />}
             label="Fale conosco"
-            onPress={() => talk()}
+            onPress={() => navigation.navigate('sendMessage')}
+         />
+         <DrawerItem
+            icon={()=><FontAwesome6 name="circle-exclamation" size={24} color="black" />}
+            label="Termos de Uso"
+            onPress={() => Linking.openURL('https://privacy.brazdriver.app.br/termos.html')}
          />
         
         <DrawerItem

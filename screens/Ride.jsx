@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef,useContext,useCallback } from 'react';
+import React, { useState, useEffect,useRef,useContext } from 'react';
 import { StyleSheet, Text, View,Image,StatusBar,ToastAndroid } from 'react-native';
 import MapView,{PROVIDER_GOOGLE,Marker} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
@@ -6,8 +6,9 @@ import { AuthContext } from '../context/AuthContext';
 import { LocationContext } from '../context/LocationContext';
 import { RideContext } from '../context/RideContext';
 import { GOOGLE_MAPS_API_KEY } from '../constants';
-import { FontAwesome } from '@expo/vector-icons';
-import carroTop from '../assets/carro-top-100x100.png';
+import markerCar from '../assets/marker-car-250x300.png';
+import startMarker from '../assets/start-marker-250x300.png';
+import finishMarker from '../assets/finish-marker-250x300.png';
 import { DriverLocationContext } from '../context/DriverLocationContext';
 import { MaterialCommunityIcons,Ionicons } from '@expo/vector-icons';
 import { cores } from '../cores';
@@ -17,8 +18,6 @@ import RideBottomSheet from '../components/RideBottomSheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { mapSilver } from '../mapStyles';
-//import FinishMarker from '../components/markers/FinishMarker';
-//import StartMarker from '../components/markers/StartMarker';
 
 
 
@@ -31,14 +30,15 @@ const Ride = ({navigation}) => {
   const {drivers,setDrivers} = useContext(DriverLocationContext);
   const mapRef = useRef();
   const rideBottomSheetRef = useRef();
+  //console.log('drivers length => '+ drivers.length);
 
   useEffect(()=>{
-    if(drivers.length==0){
+   // if(drivers.length==0){
     const interval = setInterval(()=>{
       getDrivers();
     },10000);
     return ()=>clearInterval(interval);
-    }
+   // }
   });
 
   const getDrivers = async () => {
@@ -136,11 +136,11 @@ const Ride = ({navigation}) => {
           </View>}
        
           {location&&<MapView 
-              // customMapStyle={mapSilver}
+              customMapStyle={mapSilver}
               ref={mapRef}
               style={StyleSheet.absoluteFill}
-              showsUserLocation={true}
-              showsMyLocationButton={true}
+              showsUserLocation={activeRide.status != 4}
+              showsMyLocationButton={activeRide.status != 4}
               provider={PROVIDER_GOOGLE}
               initialRegion={{
               latitude: location?.coords.latitude,
@@ -153,15 +153,15 @@ const Ride = ({navigation}) => {
           >
 
          <Marker title='De:' description={activeRide?.origem.address} coordinate={{latitude:activeRide?.origem.latitude,longitude:activeRide?.origem.longitude}} >
-             <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.startMarker} />
+             <Image  source={startMarker} style={{width:33,height:40}}/>
          </Marker>
 
-         <Marker title='Para:' description={activeRide?.origem.address} coordinate={{latitude:activeRide?.destino.latitude,longitude:activeRide?.destino.longitude}}>
-             <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.finishMarker} />
+         <Marker title='Até:' description={activeRide?.origem.address} coordinate={{latitude:activeRide?.destino.latitude,longitude:activeRide?.destino.longitude}}>
+             <Image  source={finishMarker} style={{width:33,height:40}}/>
          </Marker>
 
           {drivers.filter(driver=>driver._id===activeRide.driver?._id).map((driver)=><Marker key={driver._id} coordinate={{latitude:driver.position.latitude,longitude:driver.position.longitude}}>
-                 <Image  source={carroTop} style={{width:40,height:40}}/>
+               <Image  source={markerCar} style={{width:33,height:40}}/>
           </Marker>
              
           )}

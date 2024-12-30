@@ -15,14 +15,14 @@ const RideCard = ({ride}) => {
        <Text style={{fontWeight:'bold'}}>{util.formataData(ride.data)}</Text>
        <HeightSpacer h={10}/>
        <View style={{flexDirection:'row',gap:5}}>
-          <MaterialCommunityIcons name="map-marker-radius" size={18} color={cores.startMarker} />
+          
           <Text>{ride.origem.address}</Text>
        </View>
        <View style={{width:'100%',alignItems:'center',marginBottom:5,marginTop:5}}>
         <FontAwesome6 name="arrow-down" size={18} color={cores.primary} />
        </View>
        <View style={{flexDirection:'row',gap:5}}>
-       <MaterialCommunityIcons name="map-marker-radius" size={18} color={cores.finishMarker} />
+      
           <Text>{ride.destino.address}</Text>
        </View>
        <HeightSpacer h={10}/>

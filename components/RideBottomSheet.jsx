@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,ActivityIndicator } from 'react-native'
 import React, {useMemo,forwardRef,useContext} from 'react';
 import BottomSheet  from '@gorhom/bottom-sheet';
 import { cores } from '../cores';
@@ -21,6 +21,7 @@ const RideBottomSheet = forwardRef((props,ref) => {
     <BottomSheet style={styles.container}  ref={ref} index={0} snapPoints={snapPoints} backgroundStyle={{opacity:.9}} handleIndicatorStyle={{backgroundColor: 'gray'}}>    
         <Text style={{fontSize:18, color: '#000',width:'100%',textAlign:'center'}}>{activeRide.events[activeRide.events.length-1].descricao}</Text>
         <HeightSpacer h={20}/>
+        {activeRide.status===0&&<ActivityIndicator  size="large" color={cores.primary}/>}
         {activeRide.status===0&&<View style={{position:'absolute',bottom:10,width:'100%'}}><Botao 
                 onPress={props.cancel} 
                 text={'CANCELAR SOLICITAÇÃO'} 

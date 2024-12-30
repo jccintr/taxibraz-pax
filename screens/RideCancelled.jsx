@@ -19,7 +19,7 @@ const RideCancelled = ({navigation}) => {
         <StatusBar animated={true} backgroundColor={'#fff'} barStyle="dark-content"/>
         <MaterialIcons name="cancel" size={100} color={cores.primary} />
         <HeightSpacer h={10}/>
-        <Text style={{fontSize:20,fontWeight:'bold',color:cores.purple}}>CORRIDA CANCELADA!</Text>
+        <Text style={{fontSize:20,fontWeight:'bold',color:cores.primary}}>CORRIDA CANCELADA!</Text>
         <HeightSpacer h={20}/>
         <Text style={{fontSize:16,color:cores.primary}}>O Motorista cancelou a corrida.</Text>
         <View style={{position:'absolute',bottom:10,width:'100%'}}>

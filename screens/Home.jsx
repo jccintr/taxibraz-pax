@@ -1,5 +1,5 @@
 import React, {useEffect,useRef,useContext } from 'react';
-import { StyleSheet, Text, View,SafeAreaView,Image,StatusBar,Pressable,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,SafeAreaView,Image,StatusBar,Pressable } from 'react-native';
 import * as Location from 'expo-location';
 import MapView,{PROVIDER_GOOGLE,Marker} from 'react-native-maps';
 import { OriginContext } from '../context/OriginContext';
@@ -9,7 +9,7 @@ import { RideContext } from '../context/RideContext';
 import { FontAwesome } from '@expo/vector-icons';
 import { DriverLocationContext } from '../context/DriverLocationContext';
 import api from '../api/api';
-import carroTop from '../assets/carro-top-100x100.png';
+import markerCar from '../assets/marker-car-250x300.png';
 import Entypo from '@expo/vector-icons/Entypo';
 import { mapSilver } from '../mapStyles';
 
@@ -86,12 +86,12 @@ const Home = ({navigation}) => {
        
         <Pressable onPress={()=>onDetalhesPress()} style={styles.locationArea}>
            <FontAwesome name="map-marker" size={30} color="black" />
-           <Text style={{fontSize:16,fontWeight:'bold',width:'90%'}}>Para onde vamos ?</Text>
+           <Text style={{fontSize:16,fontWeight:'bold',width:'90%'}}>Escolha o seu destino !</Text>
         </Pressable>
 
        <View style={{flex:1}}>
        {location&&<MapView 
-                //customMapStyle={mapSilver}
+                customMapStyle={mapSilver}
                 ref={mapRef}
                 style={StyleSheet.absoluteFill}
                 showsUserLocation={true}
@@ -108,7 +108,7 @@ const Home = ({navigation}) => {
            
 
             {drivers.map((driver)=><Marker key={driver._id} coordinate={{latitude:driver.position.latitude,longitude:driver.position.longitude}}>
-               <Image  source={carroTop} style={{width:40,height:40}}/>
+               <Image  source={markerCar} style={{width:33,height:40}}/>
             </Marker>
                
             )}

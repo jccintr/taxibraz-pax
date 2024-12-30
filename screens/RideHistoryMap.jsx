@@ -1,11 +1,11 @@
-import { StyleSheet,View,SafeAreaView,StatusBar } from 'react-native';
+import { StyleSheet,View,SafeAreaView,StatusBar,Image } from 'react-native';
 import React, { useRef } from 'react';
 import MapView,{PROVIDER_GOOGLE,Marker} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import { GOOGLE_MAPS_API_KEY } from '../constants';
-//import { FontAwesome } from '@expo/vector-icons';
-import { cores } from '../cores';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import startMarker from '../assets/start-marker-250x300.png';
+import finishMarker from '../assets/finish-marker-250x300.png';
+import { mapSilver } from '../mapStyles';
 
 const RideHistoryMap = ({route}) => {
     const mapRef = useRef();
@@ -16,6 +16,7 @@ const RideHistoryMap = ({route}) => {
         <StatusBar animated={true} backgroundColor={'#fff'} barStyle="dark-content"/>
         <View style={{flex:1}}>
         <MapView 
+                customMapStyle={mapSilver}
                 ref={mapRef}
                 style={StyleSheet.absoluteFill}
                 showsUserLocation={false}
@@ -30,11 +31,11 @@ const RideHistoryMap = ({route}) => {
             >
 
                 {origem!==null&&<Marker title='De:' description={origem.address} coordinate={origem} >
-                   <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.startMarker} />
+                    <Image  source={startMarker} style={{width:33,height:40}}/>
                 </Marker>}
 
                 {destino!==null&&<Marker title='Para:' description={destino.address} coordinate={destino}>
-                  <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.finishMarker} />
+                   <Image  source={finishMarker} style={{width:33,height:40}}/>
                 </Marker>}
 
                 {origem!==null&&destino!==null&&<MapViewDirections

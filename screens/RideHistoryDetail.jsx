@@ -58,17 +58,17 @@ const RideHistoryDetail = ({navigation,route}) => {
            <Text style={styles.itemText}>{ride?.veiculo.modelo} - {ride?.veiculo.cor} - {ride?.veiculo.placa}</Text>
       </View>}
       <View style={styles.itemContainer}>
-           <Text style={styles.itemTitle}>Origem</Text>
+           <Text style={styles.itemTitle}>De</Text>
            <HeightSpacer h={10} />
            <View style={{flexDirection:'row',gap:5}}>
-              <MaterialCommunityIcons name="map-marker-radius" size={18} color={cores.startMarker} />
+             
               <Text style={styles.itemText}>{ride?.origem.address}</Text>
            </View>
            <HeightSpacer h={10} />
-           <Text style={styles.itemTitle}>Destino</Text>
+           <Text style={styles.itemTitle}>Até</Text>
            <HeightSpacer h={10} />
            <View style={{flexDirection:'row',gap:5}}>
-              <MaterialCommunityIcons name="map-marker-radius" size={18} color={cores.finishMarker} />
+             
               <Text style={styles.itemText}>{ride?.destino.address}</Text>
            </View>
            <HeightSpacer h={20} />

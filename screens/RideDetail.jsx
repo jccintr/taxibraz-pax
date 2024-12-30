@@ -8,16 +8,14 @@ import { DestinationContext } from '../context/DestinationContext';
 import { LocationContext } from '../context/LocationContext';
 import { RideContext } from '../context/RideContext';
 import { GOOGLE_MAPS_API_KEY } from '../constants';
-//import { FontAwesome } from '@expo/vector-icons';
 import RideDetaisPanel from '../components/RideDetaisPanel';
-import carroTop from '../assets/carro-top-100x100.png';
+import markerCar from '../assets/marker-car-250x300.png';
+import startMarker from '../assets/start-marker-250x300.png';
+import finishMarker from '../assets/finish-marker-250x300.png';
 import { DriverLocationContext } from '../context/DriverLocationContext';
-import { cores } from '../cores';
 import api from '../api/api';
 import util from '../util';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-//import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { mapSilver } from '../mapStyles';
 
@@ -70,7 +68,6 @@ const RideDetail = ({navigation}) => {
     
     setIsLoading(true);
     if(pagamentoId==null){
-     // alert('Escolha a forma de pagamento por favor.');
       Alert.alert('Atenção','Escolha a forma de pagamento por favor.');
       setIsLoading(false);
       return;
@@ -126,7 +123,7 @@ return (
      <View style={{flex:1}}>
       
      {location&&<MapView 
-              //customMapStyle={mapSilver}
+              customMapStyle={mapSilver}
               ref={mapRef}
               style={StyleSheet.absoluteFillObject}
               showsUserLocation={true}
@@ -143,15 +140,17 @@ return (
           >
 
          {origin!==null&&<Marker title='De:' description={originText} coordinate={origin} >
-            <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.startMarker} />
+            <Image  source={startMarker} style={{width:33,height:40}}/>
+           
          </Marker>}
 
-          {destination!==null&&<Marker  title='Para:' description={destinationText} coordinate={destination}>
-             <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.finishMarker} />
+          {destination!==null&&<Marker  title='Até:' description={destinationText} coordinate={destination}>
+             <Image  source={finishMarker} style={{width:33,height:40}}/>
+             
           </Marker>}
 
           {drivers.map((driver)=><Marker key={driver._id} coordinate={{latitude:driver.position.latitude,longitude:driver.position.longitude}}>
-                 <Image  source={carroTop} style={{width:40,height:40}}/>
+                <Image  source={markerCar} style={{width:33,height:40}}/>
           </Marker>
              
           )}
